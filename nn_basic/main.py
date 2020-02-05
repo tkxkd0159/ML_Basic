@@ -1,7 +1,12 @@
+import os
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
-from module import neuralnet as nn
 from scipy.ndimage.interpolation import rotate as scipyRotate
+
+sys.path.append(os.path.abspath('.\\'))
+from module import neuralnet as nn
+
 
 if __name__ == '__main__':
 
@@ -11,7 +16,7 @@ if __name__ == '__main__':
 
     LEARNING_RATE = 0.01
 
-    NEURAL_NETWORK = nn.NeuralNetwork(INPUT_NODE, HIDDEN_NODE, OUTPUT_NODE, LEARNING_RATE)
+    NEURAL_NETWORK = nn.NeuralNetwork(INPUT_NODE, HIDDEN_NODE, OUTPUT_NODE)
 
     with open("src/mnist_train.csv") as f:
         TRAIN_DATA = f.readlines()
@@ -38,9 +43,9 @@ if __name__ == '__main__':
             targets[correct_label] = 0.99
 
             # train
-            NEURAL_NETWORK.task(inputs, sel=1, target_list=targets)
-            NEURAL_NETWORK.task(inputs_plus5, sel=1, target_list=targets)
-            NEURAL_NETWORK.task(inputs_minus5, sel=1, target_list=targets)
+            NEURAL_NETWORK.task(inputs, sel=1, target_list=targets, learning_rate=LEARNING_RATE)
+            NEURAL_NETWORK.task(inputs_plus5, sel=1, target_list=targets, learning_rate=LEARNING_RATE)
+            NEURAL_NETWORK.task(inputs_minus5, sel=1, target_list=targets, learning_rate=LEARNING_RATE)
 
         TEST_RESULT = np.array([])
 
@@ -67,7 +72,7 @@ if __name__ == '__main__':
     print("weights(input-hidden) : ", NEURAL_NETWORK.weight_ih.shape, "weights(hidden-output) : ", NEURAL_NETWORK.weight_ho.shape)
 
 
-    with open('src/weights.csv', 'w') as f:
+    with open('src/weights2.csv', 'w') as f:
 
         np.savetxt(f, NEURAL_NETWORK.weight_ih, fmt='%.3f', delimiter=',')
         np.savetxt(f, NEURAL_NETWORK.weight_ho, fmt='%.3f', delimiter=',')
