@@ -1,6 +1,7 @@
 import os
 import sys
 import numpy as np
+import matplotlib.pyplot as plt
 
 sys.path.append(os.path.abspath('.\\'))
 from module import neuralnet as nn
@@ -40,3 +41,15 @@ if __name__ == '__main__':
             TEST_RESULT = np.append(TEST_RESULT, 0)
 
     print("Accuracy : ", TEST_RESULT.sum() / TEST_RESULT.size)
+
+    #  back query
+
+    LABEL_IDX = 0
+    LABEL_ARRAY = np.zeros(OUTPUT_NODE) + 0.01
+    LABEL_ARRAY[LABEL_IDX] = 0.99
+
+    BQ_RESULT = NEURAL_NET.backquery(LABEL_ARRAY)
+
+
+    plt.imshow(BQ_RESULT.reshape(28, 28), cmap='Greys', interpolation=None)
+    plt.show()
