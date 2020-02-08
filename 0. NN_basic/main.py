@@ -34,8 +34,8 @@ if __name__ == '__main__':
             inputs = (np.asfarray(all_values[1:]) / 255.0 * 0.99) + 0.01
 
             # image rotation
-            inputs_plus5 = scipyRotate(inputs.reshape(28, 28), 10, cval=0.01, reshape=False).reshape(-1,)
-            inputs_minus5 = scipyRotate(inputs.reshape(28, 28), -10, cval=0.01, reshape=False).reshape(-1,)
+            inputs_plus10 = scipyRotate(inputs.reshape(28, 28), 10, cval=0.01, reshape=False).reshape(-1,)
+            inputs_minus10 = scipyRotate(inputs.reshape(28, 28), -10, cval=0.01, reshape=False).reshape(-1,)
 
             #  labeling
             correct_label = int(all_values[0])
@@ -44,8 +44,8 @@ if __name__ == '__main__':
 
             # train
             NEURAL_NETWORK.task(inputs, sel=1, target_list=targets, learning_rate=LEARNING_RATE)
-            NEURAL_NETWORK.task(inputs_plus5, sel=1, target_list=targets, learning_rate=LEARNING_RATE)
-            NEURAL_NETWORK.task(inputs_minus5, sel=1, target_list=targets, learning_rate=LEARNING_RATE)
+            NEURAL_NETWORK.task(inputs_plus10, sel=1, target_list=targets, learning_rate=LEARNING_RATE)
+            NEURAL_NETWORK.task(inputs_minus10, sel=1, target_list=targets, learning_rate=LEARNING_RATE)
 
         TEST_RESULT = np.array([])
 
