@@ -1,9 +1,9 @@
-import os
 import sys
+from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
+sys.path.append(str(Path.cwd()))
 
-sys.path.append(os.path.abspath('.\\'))
 from module import neuralnet as nn
 
 
