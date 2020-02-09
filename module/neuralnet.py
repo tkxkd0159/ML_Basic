@@ -49,11 +49,14 @@ class NeuralNetwork:
             target_ = np.array(target_list, ndmin=2).T
 
             output_error = target_ - final_output
-            hidden_error = np.matmul(self.weight_ho.T, output_error)
+            output_delta = output_error * final_output * (1.0 - final_output)
+            hidden_error = np.matmul(self.weight_ho.T, output_delta)
+            hidden_delta = hidden_error * hidden_out * (1.0 - hidden_out)
 
             # Update weights
-            self.weight_ho += learning_rate * np.matmul((output_error * final_output * (1.0 - final_output)), hidden_out.T)
-            self.weight_ih += learning_rate * np.matmul((hidden_error * hidden_out * (1.0 - hidden_out)), input_.T)
+
+            self.weight_ho += learning_rate * np.matmul(output_delta, hidden_out.T)
+            self.weight_ih += learning_rate * np.matmul(hidden_delta, input_.T)
 
     def backquery(self, label_array):
         """
