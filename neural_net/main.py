@@ -72,7 +72,7 @@ if __name__ == '__main__':
     print("weights(input-hidden) : ", NEURAL_NETWORK.weight_ih.shape, "weights(hidden-output) : ", NEURAL_NETWORK.weight_ho.shape)
 
 
-    with open('src/weights3.csv', 'w') as f:
+    with open('db/weights3.csv', 'w') as f:
 
         np.savetxt(f, NEURAL_NETWORK.weight_ih, fmt='%.3f', delimiter=',')
         np.savetxt(f, NEURAL_NETWORK.weight_ho, fmt='%.3f', delimiter=',')
